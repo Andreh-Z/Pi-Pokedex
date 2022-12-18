@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { allPokemons } = require("../Controller/getAllPokemons");
 const { pokemonId } = require("../Controller/pokemonId");
+const { getTypes } = require("../Controller/getTypes");
 
 router.get("/pokemons/:limit?", async (req, res) => {
   try {
@@ -56,6 +57,11 @@ router.get("/pokemon/:id", async (req, res) => {
     console.error(error);
     res.status(500).send({ message: "Error al obtener el pokemon" });
   }
+});
+
+router.get("/types", async (req, res) => {
+  const tipos = await getTypes();
+  res.status(200).send(tipos);
 });
 
 module.exports = router;
