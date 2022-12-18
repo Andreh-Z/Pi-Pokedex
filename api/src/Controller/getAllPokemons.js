@@ -1,11 +1,8 @@
 const { Type, Pokemon } = require("../db");
 const fetch = require("node-fetch");
 
-// Esta función hace una solicitud a la API de Pokemon para recuperar una lista de Pokemon o un solo Pokemon
-// basado en el parámetro name. Si no se proporciona nombre, recuperará una lista de Pokemon basados en el límite.
 const pokemonsApi = async (limit, name) => {
   if (!name) {
-    // Si no se proporciona nombre, hacer una solicitud a la API para recuperar una lista de Pokemon basados en el límite
     let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
     const api = await fetch(url);
     const x = await api.json();
@@ -15,7 +12,7 @@ const pokemonsApi = async (limit, name) => {
     const arrayPokemonsApi = await Promise.all(
       pokemonesApi.map((response) => response.json())
     );
-    // Devuelve un array de objetos con los datos de Pokemon
+
     return arrayPokemonsApi.map((e) => ({
       id: e.id,
       name: e.name,
@@ -29,11 +26,9 @@ const pokemonsApi = async (limit, name) => {
       peso: e.weight,
     }));
   } else {
-    // Si se proporciona nombre, hacer una solicitud a la API para recuperar un solo Pokemon basado en el nombre
     let url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const api = await fetch(url);
     const x = await api.json();
-    // Devuelve un array con un único objeto que contiene los datos de Pokemon
     return [
       {
         id: x.id,
@@ -51,7 +46,6 @@ const pokemonsApi = async (limit, name) => {
   }
 };
 
-// Esta función recupera todos los datos de Pokemon de la base de datos
 const pokeDbInfo = async () => {
   return await Pokemon.findAll({
     include: {
@@ -64,16 +58,11 @@ const pokeDbInfo = async () => {
   });
 };
 
-// Esta función recupera todos los datos de Pokemon ya sea de la API o de la base de datos,
-// dependiendo de si se proporcionó un nombre o no.
 const allPokemons = async (limit, name) => {
   let getPokemons;
   if (name) {
-    // Si se proporcionó un nombre, recuperar solo los datos para ese Pokemon específico de la API
-    // Modificar esta línea para devolver solo el primer elemento de la lista, que sería el Pokemon que se está buscando
     getPokemons = (await pokemonsApi(limit, name))[0];
   } else {
-    // Si no se proporcionó nombre, recuperar todos los datos de Pokemon tanto de la API como de la base de datos
     const pokeApi = await pokemonsApi(limit);
     const pokeDB = await pokeDbInfo();
     getPokemons = pokeApi.concat(pokeDB);
