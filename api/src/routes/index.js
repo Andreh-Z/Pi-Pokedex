@@ -1,34 +1,52 @@
-const { Router } = require("express");
+const express = require("express");
+const router = express.Router();
+
+// Importar la función `allPokemons` del módulo `getAllPokemons`
 const { allPokemons } = require("../Controller/getAllPokemons");
 
-const router = Router();
-
-// Maneja peticiones HTTP GET a la ruta "/pokemons/:limit?"
-// La propiedad "limit" es opcional y se utiliza para establecer el límite de pokemon a obtener
-// Si no se especifica un límite, se utiliza el valor por defecto de 100
+// Definir una ruta GET para obtener todos los pokemons
 router.get("/pokemons/:limit?", async (req, res) => {
   try {
-    // Obtenemos el límite especificado por el cliente o utilizamos el valor por defecto de 100
+    // Obtener el número de página de la solicitud o establecer el límite por defecto en 100
     const limit = req.params.limit || 100;
-    // Obtenemos el valor del query "name", si existe
+    // Obtener el nombre de búsqueda de la solicitud
     const name = req.query.name;
-
-    // Si se especificó un valor para "name", utilizamos la función allPokemons para obtener la lista de pokemon que coinciden con ese nombre
-    // De lo contrario, utilizamos la función allPokemons para obtener la lista de todos los pokemon
     let getAllPokemon;
-    if (name) {
-      getAllPokemon = await allPokemons(limit, name);
-    } else {
-      getAllPokemon = await allPokemons(limit);
+
+    // Verificar si el número de página es válido
+    if (!isFinite(limit)) {
+      // Enviar un mensaje de error si el número de página no es válido
+      res
+        .status(400)
+        .send({ message: "El número de página debe ser un número válido" });
+      // Detener la ejecución de la ruta
+      return;
     }
 
-    // Enviamos la lista de pokemon al cliente en la respuesta
+    // Si se proporcionó un nombre como parámetro de búsqueda, buscar pokemons por nombre
+    if (name) {
+      getAllPokemon = await allPokemons(limit, name);
+      // Si no se encontró ningún pokemon con ese nombre, enviar un mensaje de error
+      if (!getAllPokemon) {
+        res
+          .status(404)
+          .send({ message: "No se encontró ningún pokemon con ese nombre" });
+        // Detener la ejecución de la ruta
+        return;
+      }
+    } else {
+      // Si no se proporcionó nombre como parámetro de búsqueda, obtener todos los pokemons
+      getAllPokemon = await allPokemons(limit);
+    }
+    // Enviar el resultado de la búsqueda como respuesta
     res.status(200).send(getAllPokemon);
   } catch (error) {
-    // Si ocurre algún error, imprimimos el error en la consola y enviamos una respuesta de error al cliente
+    // Imprimir cualquier error en la consola
     console.error(error);
+    // Enviar un mensaje de error genérico al usuario
     res.status(500).send({ message: "Error al obtener los pokemon" });
   }
 });
 
+// Exportar el router para que pueda ser utilizado en otros módulos
 module.exports = router;
