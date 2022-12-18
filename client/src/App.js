@@ -1,10 +1,20 @@
-import './App.css';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import Landing from "./Components/Landing";
+import Home from "./Components/Home";
+import NavBar from "./Components/NavBar";
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Pokemon</h1>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
