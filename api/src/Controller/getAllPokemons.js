@@ -2,24 +2,27 @@ const { Type, Pokemon } = require("../db");
 const fetch = require("node-fetch");
 
 // Añadimos un parámetro "limit" a la función para poder utilizarlo en la petición HTTP a la API de PokeAPI
-const pokemonsApi = async (limit) => {
-  // Hacemos una petición HTTP a la API de PokeAPI para obtener información sobre una lista de pokemon
-  // Utilizamos el límite especificado para establecer la cantidad de pokemon a obtener
-  const api = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+const pokemonsApi = async (limit, name) => {
+  // Creamos una variable para almacenar la url de la petición a la API
+  let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
+
+  // Si se especificó un valor para "name", añadimos el query "name" a la url de la petición
+  if (name) {
+    url += `&name=${name}`;
+  }
+
+  // Hacemos una petición HTTP a la API de PokeAPI utilizando la url que acabamos de crear
+  const api = await fetch(url);
   // Convertimos la respuesta en formato JSON
   const x = await api.json();
 
-  // Extraemos la lista de resultados de la respuesta
+  // El resto del código se mantiene igual, con la excepción de que ahora la lista de resultados podría ser más pequeña o incluso estar vacía si se especificó un valor para "name" y no se encontró ningún pokemon con ese nombre
   const arrayResults = x.results;
-  // Creamos un array con las urls de cada pokemon de la lista
   const arrayUrls = arrayResults.map((result) => result.url);
-  // Hacemos una petición a la API para obtener información sobre todos los pokemon de la lista
   const pokemonesApi = await Promise.all(arrayUrls.map((url) => fetch(url)));
-  // Convertimos cada respuesta en formato JSON
   const arrayPokemonsApi = await Promise.all(
     pokemonesApi.map((response) => response.json())
   );
-  // Devolvemos la lista de pokemon con su información
   return arrayPokemonsApi.map((e) => ({
     id: e.id,
     name: e.name,
