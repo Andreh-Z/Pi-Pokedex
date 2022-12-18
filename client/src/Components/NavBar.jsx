@@ -9,9 +9,12 @@ import {
   MDBNavbarItem,
   MDBNavbarLink,
   MDBBtn,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [showBasic, setShowBasic] = useState(false);
@@ -19,7 +22,7 @@ export default function NavBar() {
   return (
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="#">Individual Proyect</MDBNavbarBrand>
+        <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
 
         <MDBNavbarToggler
           aria-controls="navbarSupportedContent"
@@ -33,18 +36,22 @@ export default function NavBar() {
         <MDBCollapse navbar show={showBasic}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
             <MDBNavbarItem>
-              <MDBNavbarLink active aria-current="page">
-                <Link to="/">Inicio</Link>
+              <MDBNavbarLink active aria-current="page" href="#">
+                Home
               </MDBNavbarLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <MDBNavbarLink>
-                <Link to="/form">Crear pokemon</Link>
-              </MDBNavbarLink>
+              <MDBNavbarLink href="#">Link</MDBNavbarLink>
             </MDBNavbarItem>
+
             <MDBNavbarItem>
-              <MDBNavbarLink tabIndex={-1}>
-                <Link to="/">Crear pokemon</Link>
+              <MDBNavbarLink
+                disabled
+                href="#"
+                tabIndex={-1}
+                aria-disabled="true"
+              >
+                Disabled
               </MDBNavbarLink>
             </MDBNavbarItem>
           </MDBNavbarNav>
