@@ -16,8 +16,34 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllPokemons, getPokemonName } from "../Redux/action";
+
 export default function NavBar() {
   const [showBasic, setShowBasic] = useState(false);
+  const dispatch = useDispatch();
+  const [input, setInput] = useState({
+    searchbar: "",
+  });
+
+  function handleOnChange(e) {
+    e.preventDefault();
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log(input);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    dispatch(getPokemonName(input.searchbar));
+  }
+
+  useEffect(() => {
+    dispatch(getAllPokemons());
+  }, [dispatch]);
 
   return (
     <MDBNavbar expand="lg" light bgColor="white">
@@ -56,14 +82,19 @@ export default function NavBar() {
             </MDBNavbarItem>
           </MDBNavbarNav>
 
-          <form className="d-flex input-group w-auto">
+          <form className="d-flex input-group w-auto" onSubmit={onSubmit}>
             <input
               type="search"
+              onChange={handleOnChange}
               className="form-control"
-              placeholder="Type query"
+              name="searchbar"
+              value={input.searchbar}
+              placeholder="Search here..."
               aria-label="Search"
             />
-            <MDBBtn color="primary">Search</MDBBtn>
+            <MDBBtn color="primary" type="submit">
+              Search
+            </MDBBtn>
           </form>
         </MDBCollapse>
       </MDBContainer>

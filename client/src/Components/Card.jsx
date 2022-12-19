@@ -8,34 +8,50 @@ import {
   MDBBtn,
   MDBRipple,
 } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
-export default function Card() {
+export default function Card({ name, image, vida, ataque, defensa, id, tipo }) {
   return (
-    <MDBCard style={{ maxWidth: "320px" }}>
+    <MDBCard style={{ minWidth: "320px" }}>
       <MDBRipple
         rippleColor="light"
         rippleTag="div"
-        className="bg-image hover-overlay"
+        className="bg-image hover-overlay text-center"
       >
         <MDBCardImage
-          src="https://mdbootstrap.com/img/new/standard/nature/111.webp"
+          src={image}
           fluid
-          alt="..."
+          alt={name}
+          style={{ minHeight: "100px", maxHeight: "100px" }}
         />
         <a>
           <div
-            className="mask"
+            className="mask text-danger"
             style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}
-          ></div>
+          >
+            {tipo &&
+              tipo.map((element) => {
+                return (
+                  <ul>
+                    <li className="bg-dark rounded">Type: {element}</li>
+                  </ul>
+                );
+              })}
+          </div>
         </a>
       </MDBRipple>
-      <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
+      <MDBCardBody className="text-dark text-center text-capitalize">
+        <MDBCardTitle>{name}</MDBCardTitle>
         <MDBCardText>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          <ul>
+            <li>Points of life: {vida}</li>
+            <li> Attack points: {ataque}</li>
+            <li> Denfese rate: {defensa}</li>
+          </ul>
         </MDBCardText>
-        <MDBBtn href="#">Button</MDBBtn>
+        <Link to={`/details/${id}`}>
+          <MDBBtn>Details</MDBBtn>
+        </Link>
       </MDBCardBody>
     </MDBCard>
   );
