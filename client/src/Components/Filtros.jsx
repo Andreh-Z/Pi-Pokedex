@@ -1,38 +1,47 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getTypes } from "../Redux/action";
 
-function Filtros() {
+function Filtros({ setCurrentPage, orden, setOrden }) {
+  const type = useSelector((state) => {
+    return state.types;
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTypes());
+  }, [dispatch]);
   return (
     <div className="d-flex flex-row mb-5 mt-5 gap-2">
       <Form.Select aria-label="Default select example">
-        <option>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option>Attack value</option>
+        <option value="1">Higher attack ratio</option>
+        <option value="2">Lower attack ratio</option>
       </Form.Select>
       <Form.Select aria-label="Default select example">
-        <option>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option>Filter by Type</option>
+        {Array.isArray(type)
+          ? type.map((element) => {
+              return <option value={element}>{element}</option>;
+            })
+          : null}
       </Form.Select>
       <Form.Select aria-label="Default select example">
-        <option>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option>Created by</option>
+        <option value="1">User</option>
+        <option value="2">From the API</option>
       </Form.Select>
       <Form.Select aria-label="Default select example">
-        <option>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option>Sort in</option>
+        <option value="1">Ascending A-Z</option>
+        <option value="2">Descending Z-A</option>
       </Form.Select>
       <Form.Select aria-label="Default select example">
-        <option>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option>Defense value</option>
+        <option value="1">Higher defense value</option>
+        <option value="2">Lower defense value</option>
       </Form.Select>
     </div>
   );

@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllPokemons, getPokemonName } from "../Redux/action";
 
-export default function NavBar() {
+export default function NavBar({ setCurrentPage, orden, setOrden }) {
   const [showBasic, setShowBasic] = useState(false);
   const dispatch = useDispatch();
   const [input, setInput] = useState({
@@ -39,6 +39,8 @@ export default function NavBar() {
   function onSubmit(e) {
     e.preventDefault();
     dispatch(getPokemonName(input.searchbar));
+    setOrden(1);
+    console.log(`Ordenado ${orden}`);
   }
 
   useEffect(() => {
@@ -90,7 +92,6 @@ export default function NavBar() {
               name="searchbar"
               value={input.searchbar}
               placeholder="Search here..."
-              aria-label="Search"
             />
             <MDBBtn color="primary" type="submit">
               Search
