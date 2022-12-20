@@ -2,7 +2,7 @@
 
 # Individual Project - Henry Pokemon
 
-# PI-Pokemon
+# PI-Pokemon - English disclaimer at the bottom of the page.
 
 Este proyecto es una aplicación web que te permite explorar y gestionar tus Pokémon favoritos. Con esta aplicación, podrás:
 
@@ -54,3 +54,14 @@ Este proyecto es una aplicación web que te permite explorar y gestionar tus Pok
 - Supertest: Una biblioteca de solicitudes HTTP para pruebas de aplicaciones web y móviles.
 - Supertest-session: Una biblioteca de sesión para Supertest.
 - Nodemon: Una herramienta de desarrollo que permite la reinicialización automática del servidor de Node.js durante el desarrollo.
+
+<hr />
+
+<p>Disclaimer:</p>
+<p>This project was created by Maximiliano Zeballos. The code in this project includes comments in Spanish to assist other students in understanding the code. The author's English level is C1. The website is entirely in English.</p>
+
+<p>Social media:</p>
+<ul>
+  <li><a href="https://github.com/Andreh-Z">GitHub</a></li>
+  <li><a href="https://www.linkedin.com/in/maxi-zeballos/">LinkedIn</a></li>
+</ul>
