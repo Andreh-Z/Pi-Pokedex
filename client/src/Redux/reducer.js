@@ -2,6 +2,7 @@
 const initialState = {
   allPokemons: [], // Lista de todos los pokemones disponibles
   types: [], // Lista de todos los tipos de pokemon
+  copyAllPokemons: [], // Copia de la lista de todos los pokemones disponibles
 };
 
 // Función reductora principal
@@ -14,6 +15,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allPokemons: action.payload,
+        copyAllPokemons: action.payload,
       };
     }
     // Caso para la acción "GET_TYPES"
@@ -30,6 +32,75 @@ const rootReducer = (state = initialState, action) => {
         allPokemons: action.payload,
       };
     }
+
+    case "FILTER_BY_ATTACK": {
+      // Declara una variable local llamada "allPokemons" que se inicializa con el valor de la propiedad "copyAllPokemons" del objeto de estado.
+      // Esta variable representa una copia del array original que se utilizará para realizar el sorting sin modificar el array original.
+      const allPokemons = state.copyAllPokemons;
+
+      // Comprueba si "action.payload" tiene el valor "All". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "id" de menor a mayor.
+      if (action.payload === "All") {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => a.id - b.id),
+        };
+      }
+      // Si "action.payload" no tiene el valor "All", comprueba si tiene el valor "Desc". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de menor a mayor.
+      else if (action.payload === "Desc") {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => a.ataque - b.ataque),
+        };
+      }
+      // Si "action.payload" no tiene el valor "All" ni "Desc", se asume que tiene el valor "Asc". En ese caso, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de mayor a menor.
+      else {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => b.ataque - a.ataque),
+        };
+      }
+    }
+    case "FILTER_BY_DEFENSE": {
+      // Declara una variable local llamada "allPokemons" que se inicializa con el valor de la propiedad "copyAllPokemons" del objeto de estado.
+      // Esta variable representa una copia del array original que se utilizará para realizar el sorting sin modificar el array original.
+      const allPokemons = state.copyAllPokemons;
+
+      // Comprueba si "action.payload" tiene el valor "All". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "id" de menor a mayor.
+      if (action.payload === "All") {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => a.id - b.id),
+        };
+      }
+      // Si "action.payload" no tiene el valor "All", comprueba si tiene el valor "Desc". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de menor a mayor.
+      else if (action.payload === "Desc") {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => a.defensa - b.defensa),
+        };
+      }
+      // Si "action.payload" no tiene el valor "All" ni "Desc", se asume que tiene el valor "Asc". En ese caso, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de mayor a menor.
+      else {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => b.defensa - a.defensa),
+        };
+      }
+    }
+    case "FILTER_BY_TYPE": {
+      // Filtrar la lista de todos los Pokémon por el tipo especificado en el payload de la acción
+      const filter = state.allPokemons.filter((element) =>
+        element.tipo.includes(action.payload)
+      );
+
+      // Devolver un nuevo objeto de estado con todas las propiedades del estado original,
+      // pero con la lista de todos los Pokémon reemplazada por la lista filtrada
+      return {
+        ...state,
+        allPokemons: filter,
+      };
+    }
+
     // Caso por defecto, devuelve el estado actual
     default:
       return state;

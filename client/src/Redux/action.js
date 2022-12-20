@@ -36,3 +36,23 @@ export const getPokemonName = (name) => {
       });
   };
 };
+
+export const filterByAttack = (payload) => {
+  return {
+    type: "FILTER_BY_ATTACK",
+    payload: payload,
+  };
+};
+export const filterByDefense = (payload) => {
+  return {
+    type: "FILTER_BY_DEFENSE",
+    payload: payload,
+  };
+};
+
+export const filterByType = (payload) => {
+  return {
+    type: "FILTER_BY_TYPE",
+    payload: payload,
+  };
+};

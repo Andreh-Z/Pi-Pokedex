@@ -28,6 +28,7 @@ export default function FormCreate() {
     attackValue: "",
     defenseValue: "",
     speed: "",
+    flexCheck: false,
     types: [],
   });
 
@@ -194,10 +195,16 @@ export default function FormCreate() {
 
               <MDBCheckbox
                 name="flexCheck"
-                value=""
+                onChange={handleChange}
                 id="flexCheckDefault"
+                value={formData.flexCheck}
                 label="I have respected all the rules and I am responsible for possible consequences if I violate any of them."
               />
+              {errors.flexCheck && (
+                <Form.Text className="text-danger">
+                  {errors.flexCheck}
+                </Form.Text>
+              )}
               <MDBBtn>Create</MDBBtn>
             </div>
           </Form>
