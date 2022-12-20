@@ -16,42 +16,62 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllPokemons, getPokemonName } from "../Redux/action";
 
 export default function NavBar({ setCurrentPage, orden, setOrden }) {
+  // Estado para controlar si se muestra un componente básico o no
+  // showBasic es el valor del estado y setShowBasic es la función para actualizar el valor del estado
   const [showBasic, setShowBasic] = useState(false);
+  // Hook de dispatch para enviar acciones al store de Redux
   const dispatch = useDispatch();
+  // Estado para almacenar el valor del input de búsqueda
+  // input es el valor del estado y setInput es la función para actualizar el valor del estado
   const [input, setInput] = useState({
-    searchbar: "",
+    searchbar: "", // Valor del input de búsqueda
   });
 
+  // Función manejadora del evento onChange del input de búsqueda
   function handleOnChange(e) {
+    // Prevenir la recarga de la página al hacer submit del formulario
     e.preventDefault();
+    // Actualizar el estado del input con el nuevo valor del input de búsqueda
     setInput({
+      // Mantener el resto de los valores del estado del input
       ...input,
+      // Actualizar el valor del input de búsqueda con el nuevo valor
       [e.target.name]: e.target.value,
     });
-    console.log(input);
+    console.log(input); // Mostrar el valor del input en la consola
   }
 
+  // Función manejadora del evento onSubmit del formulario de búsqueda
   function onSubmit(e) {
+    // Prevenir la recarga de la página al hacer submit del formulario
     e.preventDefault();
+    // Enviar la acción getPokemonName al store de Redux con el valor del input de búsqueda como parámetro
     dispatch(getPokemonName(input.searchbar));
+    // Establecer el orden a 1
     setOrden(1);
-    console.log(`Ordenado ${orden}`);
+    console.log(`Ordenado ${orden}`); // Mostrar el valor del orden en la consola
   }
 
+  // Efecto que se ejecuta cuando el componente se monta
   useEffect(() => {
+    // Enviar la acción getAllPokemons al store de Redux
     dispatch(getAllPokemons());
   }, [dispatch]);
 
   return (
     <MDBNavbar expand="lg" light bgColor="white">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
-
+        <MDBNavbarBrand>
+          <Link to="/" className="text-dark">
+            Pokedex
+          </Link>
+        </MDBNavbarBrand>
         <MDBNavbarToggler
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
@@ -60,16 +80,19 @@ export default function NavBar({ setCurrentPage, orden, setOrden }) {
         >
           <MDBIcon icon="bars" fas />
         </MDBNavbarToggler>
-
         <MDBCollapse navbar show={showBasic}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
             <MDBNavbarItem>
-              <MDBNavbarLink active aria-current="page" href="#">
-                Home
-              </MDBNavbarLink>
+              <Link to="/home">
+                <MDBNavbarLink active aria-current="page">
+                  Home
+                </MDBNavbarLink>
+              </Link>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <MDBNavbarLink href="#">Link</MDBNavbarLink>
+              <Link to="/form">
+                <MDBNavbarLink>Create your pokemon</MDBNavbarLink>
+              </Link>
             </MDBNavbarItem>
 
             <MDBNavbarItem>
@@ -79,7 +102,7 @@ export default function NavBar({ setCurrentPage, orden, setOrden }) {
                 tabIndex={-1}
                 aria-disabled="true"
               >
-                Disabled
+                Log In
               </MDBNavbarLink>
             </MDBNavbarItem>
           </MDBNavbarNav>

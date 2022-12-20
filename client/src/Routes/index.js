@@ -1,5 +1,6 @@
 import React from "react"; // Importamos el módulo de React
 import { createBrowserRouter } from "react-router-dom"; // Importamos la función createBrowserRouter de react-router-dom
+import FormCreate from "../Components/CreatePokemon/FormCreate";
 import Home from "../Components/Home"; // Importamos el componente Home
 import Landing from "../Components/Landing"; // Importamos el componente Landing
 import NavBar from "../Components/NavBar"; // Importamos el componente NavBar
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/home", // La ruta /home
     element: <Home />, // Mostramos el componente Home para la ruta /home
+  },
+  {
+    path: "/form",
+    element: <FormCreate />,
   },
 ]);
 
