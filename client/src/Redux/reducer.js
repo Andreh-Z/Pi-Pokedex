@@ -61,26 +61,18 @@ const rootReducer = (state = initialState, action) => {
       }
     }
     case "FILTER_BY_DEFENSE": {
-      // Declara una variable local llamada "allPokemons" que se inicializa con el valor de la propiedad "copyAllPokemons" del objeto de estado.
-      // Esta variable representa una copia del array original que se utilizará para realizar el sorting sin modificar el array original.
       const allPokemons = state.copyAllPokemons;
-
-      // Comprueba si "action.payload" tiene el valor "All". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "id" de menor a mayor.
       if (action.payload === "All") {
         return {
           ...state,
           allPokemons: allPokemons.sort((a, b) => a.id - b.id),
         };
-      }
-      // Si "action.payload" no tiene el valor "All", comprueba si tiene el valor "Desc". Si es así, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de menor a mayor.
-      else if (action.payload === "Desc") {
+      } else if (action.payload === "Desc") {
         return {
           ...state,
           allPokemons: allPokemons.sort((a, b) => a.defensa - b.defensa),
         };
-      }
-      // Si "action.payload" no tiene el valor "All" ni "Desc", se asume que tiene el valor "Asc". En ese caso, devuelve el objeto de estado con el array "allPokemons" ordenado por la propiedad "ataque" de mayor a menor.
-      else {
+      } else {
         return {
           ...state,
           allPokemons: allPokemons.sort((a, b) => b.defensa - a.defensa),
