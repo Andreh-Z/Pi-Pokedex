@@ -5,7 +5,7 @@ import Home from "../Components/Home"; // Importamos el componente Home
 import Landing from "../Components/Landing"; // Importamos el componente Landing
 import NavBar from "../Components/NavBar"; // Importamos el componente NavBar
 import ErrorPage from "./ErrorPage"; // Importamos el componente ErrorPage
-
+import IntermediatePage from "../Components/IntermediatePage";
 const router = createBrowserRouter([
   // Creamos el componente de enrutamiento con createBrowserRouter
   {
@@ -18,8 +18,14 @@ const router = createBrowserRouter([
     element: <Home />, // Mostramos el componente Home para la ruta /home
   },
   {
-    path: "/form",
-    element: <FormCreate />,
+    path: "/intermediate",
+    element: <IntermediatePage />,
+    children: [
+      {
+        path: "form",
+        element: <FormCreate />,
+      },
+    ],
   },
 ]);
 

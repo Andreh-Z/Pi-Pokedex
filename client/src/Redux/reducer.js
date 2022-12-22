@@ -93,16 +93,24 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-    case "FILTER_BY_CREATE": {
-      const filtrado = state.allPokemons.filter((element) => {
-        element.createOnDataBase.includes(action.payload);
-      });
-      return {
+case "FILTER_BY_CREATE": {
+  const allPokemons = state.copyAllPokemons
+    if(action.payload=== "All"){
+      return{
         ...state,
-        allPokemons: filtrado,
-      };
+        allPokemons: allPokemons.sort((a, b) => a.id - b.id),
+      }
+    }else if(action.payload === "createOnDataBase"){
+      return{
+        ...state,
+        allPokemons: allPokemons.filter((element) =>{
+          return element.createOnDataBase === true
+        })
+      }
     }
-
+  
+  
+}
     // Caso por defecto, devuelve el estado actual
     default:
       return state;
