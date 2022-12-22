@@ -20,13 +20,8 @@ const router = createBrowserRouter([
   {
     path: "/intermediate",
     element: <IntermediatePage />,
-    children: [
-      {
-        path: "form",
-        element: <FormCreate />,
-      },
-    ],
   },
+  { path: "form", element: <FormCreate /> },
 ]);
 
 export default router; // Exportamos el componente de enrutamiento como el módulo predeterminado

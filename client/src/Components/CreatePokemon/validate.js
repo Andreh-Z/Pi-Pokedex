@@ -1,65 +1,55 @@
 function validateForm(formData) {
-  // Objeto para almacenar cualquier error que se encuentre
-  let errors = {};
+  const errors = {};
 
-  // Compruebe que el campo pokeName esté llenado y solo contenga letras
-  if (!formData.pokeName || !/^[a-zA-Z]+$/.test(formData.pokeName)) {
-    errors.pokeName =
-      "El campo 'pokeName' es obligatorio y solo puede contener letras";
+  // Validate Types
+  if (!formData.Types || formData.Types.length === 0) {
+    errors.Types = "You must select at least one option";
   }
 
-  // Función de validación para campos que deben contener un número entre 1 y un valor máximo determinado
-  function validateNumberField(value, max) {
-    // Compruebe que el campo esté llenado
-    if (!value) {
-      return "Este campo es obligatorio";
-    }
-    // Compruebe que el campo no contenga espacios
-    if (/\s/.test(value)) {
-      return "Este campo no puede contener espacios";
-    }
-    // Compruebe que el campo solo contenga números
-    if (!/^\d+$/.test(value)) {
-      return "Este campo solo puede contener números";
-    }
-    // Compruebe que el número esté entre 1 y el valor máximo determinado
-    if (parseInt(value) > max) {
-      return `Este campo debe ser un número entre 1 y ${max}`;
-    }
-    // Si no se encuentran errores, devuelva una cadena vacía
-    return "";
+  // Validate Speed
+  if (
+    !formData.Speed ||
+    !/^\d+$/.test(formData.Speed) ||
+    formData.Speed < 1 ||
+    formData.Speed > 150
+  ) {
+    errors.Speed = "You must enter an integer between 1 and 150";
   }
 
-  // Compruebe el campo attackValue
-  const attackError = validateNumberField(formData.attackValue, 50);
-  if (attackError) {
-    errors.attackValue = attackError;
+  // Validate Attack
+  if (
+    !formData.Attack ||
+    !/^\d+$/.test(formData.Attack) ||
+    formData.Attack < 1 ||
+    formData.Attack > 200
+  ) {
+    errors.Attack = "You must enter an integer between 1 and 200";
   }
 
-  // Compruebe el campo defenseValue
-  const defenseError = validateNumberField(formData.defenseValue, 50);
-  if (defenseError) {
-    errors.defenseValue = defenseError;
+  // Validate Defense
+  if (
+    !formData.Defense ||
+    !/^\d+$/.test(formData.Defense) ||
+    formData.Defense < 1 ||
+    formData.Defense > 350
+  ) {
+    errors.Defense = "You must enter an integer between 1 and 350";
   }
 
-  // Compruebe el campo speed
-  const speedError = validateNumberField(formData.speed, 100);
-  if (speedError) {
-    errors.speed = speedError;
+  // Validate Picture
+  if (!formData.Picture || !(formData.Picture instanceof File)) {
+    errors.Picture = "You must upload a photo";
   }
 
-  // Compruebe que el campo types esté llenado y solo contenga una lista de letras separadas por comas
-  if (!formData.types || !/^[a-zA-Z]+(,[a-zA-Z]+)*$/.test(formData.types)) {
-    errors.types =
-      "El campo 'Types' es obligatorio y debes seleccionar al menos una opción";
-  }
-  // Compruebe que la checkbox "flexCheck" ha sido marcada
-  if (!formData.flexCheck) {
-    errors.flexCheck = "Debes marcar esta casilla para continuar";
+  // Validate CreatorsName
+  if (!formData.CreatorsName || !/^[a-zA-Z]+$/.test(formData.CreatorsName)) {
+    errors.CreatorsName = "You must enter only letters";
   }
 
-  // Devuelva el objeto de errores
+  // Validate PokemonName
+  if (!formData.PokemonName || !/^[a-zA-Z]+$/.test(formData.PokemonName)) {
+    errors.PokemonName = "You must enter only letters";
+  }
+
   return errors;
 }
-
-export default validateForm;

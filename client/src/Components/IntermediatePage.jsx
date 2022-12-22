@@ -13,10 +13,9 @@ import {
 } from "mdb-react-ui-kit";
 import NavBar from "./NavBar";
 import FormCreate from "./CreatePokemon/FormCreate";
-import { Navigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function IntermediatePage() {
-  const location = useLocation();
-  const history = location.history;
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -90,7 +89,7 @@ export default function IntermediatePage() {
 
                   // If the checkbox is valid, redirect the user to the specified URL
                   if (isValid) {
-                    return <Navigate to="/form" />;
+                    navigate("/form");
                   }
                 }}
               >
