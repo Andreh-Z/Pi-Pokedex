@@ -7,6 +7,7 @@ import {
   filterByAttack,
   filterByType,
   filterByDefense,
+  userMade,
 } from "../Redux/action";
 
 function Filtros({ setCurrentPage, orden, setOrden }) {
@@ -26,6 +27,13 @@ function Filtros({ setCurrentPage, orden, setOrden }) {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(filterByType(e.target.value));
+    setOrden(`Orden de ${e.target.value}`);
+  };
+
+  const filter_userMade = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(userMade(e.target.value));
     setOrden(`Orden de ${e.target.value}`);
   };
 
@@ -54,10 +62,13 @@ function Filtros({ setCurrentPage, orden, setOrden }) {
             })
           : null}
       </Form.Select>
-      <Form.Select aria-label="Default select example">
+      <Form.Select
+        aria-label="Default select example"
+        onChange={filter_userMade}
+      >
         <option>Created by</option>
-        <option value="1">User</option>
-        <option value="2">From the API</option>
+        <option value="createOnDataBase">User</option>
+        <option value="All">From the API</option>
       </Form.Select>
       <Form.Select aria-label="Default select example">
         <option>Sort in</option>

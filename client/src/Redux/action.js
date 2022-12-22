@@ -50,6 +50,13 @@ export const filterByDefense = (payload) => {
   };
 };
 
+export const userMade = (payload) => {
+  return {
+    type: "FILTER_BY_CREATE",
+    payload: payload,
+  };
+};
+
 export const filterByType = (payload) => {
   return {
     type: "FILTER_BY_TYPE",

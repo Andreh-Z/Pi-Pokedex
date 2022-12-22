@@ -93,6 +93,16 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
+    case "FILTER_BY_CREATE": {
+      const filtrado = state.allPokemons.filter((element) => {
+        element.createOnDataBase.includes(action.payload);
+      });
+      return {
+        ...state,
+        allPokemons: filtrado,
+      };
+    }
+
     // Caso por defecto, devuelve el estado actual
     default:
       return state;
