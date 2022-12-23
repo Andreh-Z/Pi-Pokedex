@@ -63,3 +63,16 @@ export const filterByType = (payload) => {
     payload: payload,
   };
 };
+
+export const pokemonID = (id) => {
+  return function(dispatch) {
+    return fetch(`http://localhost:3001/pokemon/${id}`)
+      .then((respuesta) => respuesta.json())
+      .then((pokemonId) => {
+        dispatch({
+          type: "POKEMON_ID",
+          payload: pokemonId,
+        });
+      });
+  };
+};

@@ -3,6 +3,7 @@ const initialState = {
   allPokemons: [], // Lista de todos los pokemones disponibles
   types: [], // Lista de todos los tipos de pokemon
   copyAllPokemons: [], // Copia de la lista de todos los pokemones disponibles
+  details: {},
 };
 
 // Función reductora principal
@@ -93,24 +94,30 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
-case "FILTER_BY_CREATE": {
-  const allPokemons = state.copyAllPokemons
-    if(action.payload=== "All"){
-      return{
-        ...state,
-        allPokemons: allPokemons.sort((a, b) => a.id - b.id),
-      }
-    }else if(action.payload === "createOnDataBase"){
-      return{
-        ...state,
-        allPokemons: allPokemons.filter((element) =>{
-          return element.createOnDataBase === true
-        })
+    case "FILTER_BY_CREATE": {
+      const allPokemons = state.copyAllPokemons;
+      if (action.payload === "All") {
+        return {
+          ...state,
+          allPokemons: allPokemons.sort((a, b) => a.id - b.id),
+        };
+      } else if (action.payload === "createOnDataBase") {
+        return {
+          ...state,
+          allPokemons: allPokemons.filter((element) => {
+            return element.createOnDataBase === true;
+          }),
+        };
       }
     }
-  
-  
-}
+
+    case "POKEMON_ID": {
+      return {
+        ...state,
+        details: action.payload,
+      };
+    }
+
     // Caso por defecto, devuelve el estado actual
     default:
       return state;

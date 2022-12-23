@@ -50,7 +50,7 @@ export default function Card({ name, image, vida, ataque, defensa, id, tipo }) {
           </ul>
         </MDBCardText>
         <Link to={`/details/${id}`}>
-          <MDBBtn>Details</MDBBtn>
+          <MDBBtn color="success">Details</MDBBtn>
         </Link>
       </MDBCardBody>
     </MDBCard>

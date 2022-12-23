@@ -6,6 +6,8 @@ import Landing from "../Components/Landing"; // Importamos el componente Landing
 import NavBar from "../Components/NavBar"; // Importamos el componente NavBar
 import ErrorPage from "./ErrorPage"; // Importamos el componente ErrorPage
 import IntermediatePage from "../Components/IntermediatePage";
+import Details from "../Components/Details";
+
 const router = createBrowserRouter([
   // Creamos el componente de enrutamiento con createBrowserRouter
   {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
     element: <IntermediatePage />,
   },
   { path: "form", element: <FormCreate /> },
+  {
+    path: "/details/:id",
+    element: <Details />,
+  },
 ]);
 
 export default router; // Exportamos el componente de enrutamiento como el módulo predeterminado
