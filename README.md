@@ -1,8 +1,5 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
 
-# Individual Project - Henry Pokemon
-
-# PI-Pokemon - English disclaimer at the bottom of the page.
+# Poxedex - Proyecto Individual - English disclaimer at the bottom of the page.
 
 Este proyecto es una aplicación web que te permite explorar y gestionar tus Pokémon favoritos. Con esta aplicación, podrás:
 
