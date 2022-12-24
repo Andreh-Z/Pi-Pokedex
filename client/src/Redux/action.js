@@ -76,3 +76,21 @@ export const pokemonID = (id) => {
       });
   };
 };
+
+export const createPokemon = (input) => {
+  return function() {
+    return fetch("http://localhost:3001/pokemon", {
+      method: "POST", // Indicamos que se trata de una solicitud POST
+      body: JSON.stringify({
+        // Convertimos el cuerpo de la solicitud a formato JSON
+        input,
+      }),
+      headers: {
+        "Content-Type": "application/json", // Indicamos que el cuerpo de la solicitud es en formato JSON
+      },
+    })
+      .then((res) => res.json()) // Convertimos la respuesta a formato JSON
+      .then((data) => console.log(data)) // Mostramos la respuesta en la consola
+      .catch((error) => console.error(error)); // Mostramos cualquier error en la consola
+  };
+};

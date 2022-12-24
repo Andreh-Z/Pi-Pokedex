@@ -37,7 +37,7 @@ const pokemonsApi = async (limit, name) => {
     }));
   } else {
     // Si se especificó un nombre de Pokémon, se construye la URL de la API de Pokémon con el nombre del Pokémon
-    let url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+    let url = `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`;
     // Se hace una petición a la API de Pokémon
     const api = await fetch(url);
     // Se transforma la respuesta de la API a formato JSON

@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     // Creamos una columna llamada "velocidad" de tipo INTEGER
     // que no puede ser nula
     velocidad: {
@@ -67,6 +71,10 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    creatorsName: {
+      type: DataTypes.STRING,
+      alloNull: false,
     },
   });
 };
